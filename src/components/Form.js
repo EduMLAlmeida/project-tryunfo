@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Form.css';
 
 class Form extends React.Component {
   render() {
@@ -79,6 +80,7 @@ class Form extends React.Component {
             name="cardRare"
             value={ cardRare }
             onChange={ onInputChange }
+            onClick={ onInputChange }
           >
             <option>normal</option>
             <option>raro</option>
@@ -118,8 +120,7 @@ Form.propTypes = {
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
   hasTrunfo: PropTypes.bool.isRequired,
-  // mudei o tipo abaixo de func para string para teste
-  isSaveButtonDisabled: PropTypes.string.isRequired,
+  isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
 };

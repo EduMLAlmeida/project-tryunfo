@@ -16,7 +16,52 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       hasTrunfo: false,
+      emptyForm: true,
     };
+  }
+
+  handleButton() {
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+    } = this.state;
+
+    const maxSum = 210;
+    const maxAttr = 90;
+    const minAttr = 0;
+
+    // Ideia da lógica de habilitar o botão e depois desabilitar com o teste dada pelo Imar.
+
+    this.setState({ emptyForm: false });
+
+    if (
+      cardName === ''
+      || cardDescription === ''
+      || cardImage === ''
+      || cardRare === ''
+    ) {
+      console.log('teste');
+      this.setState({ emptyForm: true });
+    }
+
+    if (
+      (parseInt(cardAttr1, 10)
+        + parseInt(cardAttr2, 10)
+        + parseInt(cardAttr3, 10)) > maxSum
+      || parseInt(cardAttr1, 10) > maxAttr
+      || parseInt(cardAttr1, 10) < minAttr
+      || parseInt(cardAttr2, 10) > maxAttr
+      || parseInt(cardAttr2, 10) < minAttr
+      || parseInt(cardAttr3, 10) > maxAttr
+      || parseInt(cardAttr3, 10) < minAttr
+    ) {
+      this.setState({ emptyForm: true });
+    }
   }
 
   onInputChange(event) {
@@ -25,7 +70,7 @@ class App extends React.Component {
     const elementValue = type === 'checkbox'
       ? checked : value;
     const elementName = name;
-    this.setState({ [elementName]: elementValue });
+    this.setState({ [elementName]: elementValue }, () => this.handleButton());
   }
 
   render() {
@@ -39,6 +84,7 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       hasTrunfo,
+      emptyForm,
     } = this.state;
     return (
       <div>
@@ -52,8 +98,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
           hasTrunfo={ hasTrunfo }
-          // mudei o callback da linha abaixo por cardName para teste
-          isSaveButtonDisabled={ cardName }
+          isSaveButtonDisabled={ emptyForm }
           onInputChange={ this.onInputChange }
           onSaveButtonClick={ () => {} }
         />

@@ -1,0 +1,11 @@
+form {
+  border: solid 1px black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  justify-content: space-around;
+  margin: 30px auto;
+  padding: 20px;
+  width: 50%;
+}
