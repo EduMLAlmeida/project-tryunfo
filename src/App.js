@@ -16,7 +16,7 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       hasTrunfo: false,
-      emptyForm: true,
+      isSaveButtonDisabled: true,
     };
   }
 
@@ -35,32 +35,24 @@ class App extends React.Component {
     const maxAttr = 90;
     const minAttr = 0;
 
-    // Ideia da lógica de habilitar o botão e depois desabilitar com o teste dada pelo Imar.
-
-    this.setState({ emptyForm: false });
-
     if (
-      cardName === ''
-      || cardDescription === ''
-      || cardImage === ''
-      || cardRare === ''
-    ) {
-      console.log('teste');
-      this.setState({ emptyForm: true });
-    }
-
-    if (
-      (parseInt(cardAttr1, 10)
+      cardName !== ''
+      && cardDescription !== ''
+      && cardImage !== ''
+      && cardRare !== ''
+      && (parseInt(cardAttr1, 10)
         + parseInt(cardAttr2, 10)
-        + parseInt(cardAttr3, 10)) > maxSum
-      || parseInt(cardAttr1, 10) > maxAttr
-      || parseInt(cardAttr1, 10) < minAttr
-      || parseInt(cardAttr2, 10) > maxAttr
-      || parseInt(cardAttr2, 10) < minAttr
-      || parseInt(cardAttr3, 10) > maxAttr
-      || parseInt(cardAttr3, 10) < minAttr
+        + parseInt(cardAttr3, 10)) <= maxSum
+      && parseInt(cardAttr1, 10) <= maxAttr
+      && parseInt(cardAttr1, 10) >= minAttr
+      && parseInt(cardAttr2, 10) <= maxAttr
+      && parseInt(cardAttr2, 10) >= minAttr
+      && parseInt(cardAttr3, 10) <= maxAttr
+      && parseInt(cardAttr3, 10) >= minAttr
     ) {
-      this.setState({ emptyForm: true });
+      this.setState({ isSaveButtonDisabled: false });
+    } else {
+      this.setState({ isSaveButtonDisabled: true });
     }
   }
 
@@ -70,7 +62,7 @@ class App extends React.Component {
     const elementValue = type === 'checkbox'
       ? checked : value;
     const elementName = name;
-    this.setState({ [elementName]: elementValue }, () => this.handleButton());
+    this.setState({ [elementName]: elementValue }, this.handleButton);
   }
 
   render() {
@@ -84,7 +76,7 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       hasTrunfo,
-      emptyForm,
+      isSaveButtonDisabled,
     } = this.state;
     return (
       <div>
@@ -98,7 +90,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
           hasTrunfo={ hasTrunfo }
-          isSaveButtonDisabled={ emptyForm }
+          isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.onInputChange }
           onSaveButtonClick={ () => {} }
         />
