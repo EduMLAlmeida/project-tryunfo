@@ -1,17 +1,19 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import data from './components/data';
 
 class App extends React.Component {
   constructor() {
     super();
     this.onInputChange = this.onInputChange.bind(this);
     this.state = {
+      dataState: data,
       cardName: '',
       cardDescription: '',
-      cardAttr1: '',
-      cardAttr2: '',
-      cardAttr3: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
@@ -65,6 +67,26 @@ class App extends React.Component {
     this.setState({ [elementName]: elementValue }, this.handleButton);
   }
 
+  addNewCard = () => {
+    const { state } = this;
+    this.setState((prevState) => ({
+      // Linha abaixo cria novo array (dentro do estado dataState) guarda dentro dele o estado anterior e adiciona o novo estado. Código retirado da aula ao vivo (11.2).
+      dataState: [...prevState.dataState, state],
+    }));
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: '',
+      cardTrunfo: false,
+      hasTrunfo: false,
+      isSaveButtonDisabled: true,
+    });
+  }
+
   render() {
     const {
       cardName,
@@ -92,7 +114,7 @@ class App extends React.Component {
           hasTrunfo={ hasTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.onInputChange }
-          onSaveButtonClick={ () => {} }
+          onSaveButtonClick={ this.addNewCard }
         />
         <Card
           cardName={ cardName }

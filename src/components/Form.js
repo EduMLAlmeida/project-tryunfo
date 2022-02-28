@@ -19,8 +19,9 @@ class Form extends React.Component {
       onSaveButtonClick,
     } = this.props;
     console.log(hasTrunfo);
+
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <label htmlFor="cardName">
           <input
             type="text"
@@ -43,6 +44,8 @@ class Form extends React.Component {
             type="number"
             data-testid="attr1-input"
             name="cardAttr1"
+            min="0"
+            max="90"
             value={ cardAttr1 }
             onChange={ onInputChange }
           />
@@ -52,6 +55,8 @@ class Form extends React.Component {
             type="number"
             data-testid="attr2-input"
             name="cardAttr2"
+            min="0"
+            max="90"
             value={ cardAttr2 }
             onChange={ onInputChange }
           />
@@ -61,6 +66,8 @@ class Form extends React.Component {
             type="number"
             data-testid="attr3-input"
             name="cardAttr3"
+            min="0"
+            max="90"
             value={ cardAttr3 }
             onChange={ onInputChange }
           />
@@ -97,7 +104,7 @@ class Form extends React.Component {
           />
         </label>
         <button
-          type="submit"
+          type="button"
           data-testid="save-button"
           name="save-button"
           disabled={ isSaveButtonDisabled }
