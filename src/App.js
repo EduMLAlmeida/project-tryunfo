@@ -113,7 +113,6 @@ class App extends React.Component {
     return (
       <div>
         <Form
-          dataState={ dataState }
           cardName={ cardName }
           cardDescription={ cardDescription }
           cardAttr1={ cardAttr1 }
@@ -137,7 +136,11 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        <CardsDeck />
+        {
+          dataState
+            ? <CardsDeck dataState={ dataState } />
+            : <p />
+        }
       </div>
     );
   }
