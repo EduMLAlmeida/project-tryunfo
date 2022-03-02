@@ -1,14 +1,14 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
-import data from './components/data';
+import CardsDeck from './components/CardsDeck';
 
 class App extends React.Component {
   constructor() {
     super();
     this.onInputChange = this.onInputChange.bind(this);
     this.state = {
-      dataState: data,
+      dataState: [],
       cardName: '',
       cardDescription: '',
       cardAttr1: '0',
@@ -72,7 +72,7 @@ class App extends React.Component {
     this.setState((prevState) => ({
       // Linha abaixo cria novo array (dentro do estado dataState) guarda dentro dele o estado anterior e adiciona o novo estado. Código retirado da aula ao vivo (11.2).
       dataState: [...prevState.dataState, state],
-    }));
+    }), this.validateSuperTrunfo);
     this.setState({
       cardName: '',
       cardDescription: '',
@@ -87,8 +87,18 @@ class App extends React.Component {
     });
   }
 
+  validateSuperTrunfo = () => {
+    const { dataState } = this.state;
+    dataState.forEach((element) => {
+      if (element.cardTrunfo === true) {
+        this.setState({ hasTrunfo: true });
+      }
+    });
+  }
+
   render() {
     const {
+      dataState,
       cardName,
       cardDescription,
       cardAttr1,
@@ -103,6 +113,7 @@ class App extends React.Component {
     return (
       <div>
         <Form
+          dataState={ dataState }
           cardName={ cardName }
           cardDescription={ cardDescription }
           cardAttr1={ cardAttr1 }
@@ -126,6 +137,7 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        <CardsDeck />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Form.css';
+import Checkbox from './Checkbox';
 
 class Form extends React.Component {
   render() {
@@ -18,7 +19,6 @@ class Form extends React.Component {
       onInputChange,
       onSaveButtonClick,
     } = this.props;
-    console.log(hasTrunfo);
 
     return (
       <form onSubmit={ this.handleSubmit }>
@@ -94,15 +94,12 @@ class Form extends React.Component {
             <option>muito raro</option>
           </select>
         </label>
-        <label htmlFor="cardTrunfo">
-          <input
-            type="checkbox"
-            data-testid="trunfo-input"
-            name="cardTrunfo"
-            checked={ cardTrunfo }
-            onChange={ onInputChange }
-          />
-        </label>
+        {
+          hasTrunfo
+            ? <p>Você já tem um Super Trunfo em seu baralho</p>
+            // Componente Checkbox criado para solucionar erro de Lint que pedia mais indentação e menos indentação ao mesmo tempo.
+            : <Checkbox cardTrunfo={ cardTrunfo } onInputChange={ onInputChange } />
+        }
         <button
           type="button"
           data-testid="save-button"
